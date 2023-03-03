@@ -13,17 +13,23 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     //
-    private $title;
-    private $breadcrumb;
+    private $title = '';
+    private $breadcrumb = '';
+    private $active = '';
+    private $page_title = '';
     function setup(){
         $this->title = 'Products';
         $this->breadcrumb = 'Product';
+        $this->active = 'product';
+        $this->page_title = 'Product';
     }
 
     function dataset(){
         return [
-            'title' => $this->title ?? '',
-            'breadcrumb' => $this->breadcrumb ?? '',
+            'title' => $this->title,
+            'breadcrumb' => $this->breadcrumb,
+            'active' => $this->active,
+            'page_title' => $this->page_title,
         ];
     }
 

@@ -15,11 +15,6 @@
               <li class="breadcrumb-item active">{{ $breadcrumb }}</li>
             </ol>
           </div>
-          <div class="col" style="margin-top:9px;">
-            <a href="{{ url('product/create') }}">
-                <button type="button" class="btn btn-primary">+ Add Product</button>
-            </a>
-          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -35,11 +30,11 @@
                 <table id="list-datatable" class="bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" style="border-collapse: collapse;" cellspacing="0">
                   <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>No Reference</th>
                     <th>Price</th>
-                    <th>Stock</th>
-                    <th>Description</th>
-                    <th class="no-sort"></th>
+                    <th>Quantity</th>
+                    <th>Payment Amount</th>
+                    <th>Product</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -47,11 +42,11 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Name</th>
+                    <th>No Reference</th>
                     <th>Price</th>
-                    <th>Stock</th>
-                    <th>Description</th>
-                    <th></th>
+                    <th>Quantity</th>
+                    <th>Payment Amount</th>
+                    <th>Product</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -99,64 +94,6 @@
 
 @push('custom-scripts')
 <script>
-    function deleteBtn(route){
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-			      url: route,
-			      type: 'DELETE',
-                  data : { 
-                    _token: "{{ csrf_token() }}" 
-                  },
-			      success: function(result) {
-			          if (result == 1) {
-                        if (typeof window.crud != 'undefined') {
-                            // Move to previous page in case of deleting the only item in table
-                            if(window.crud.rows().count() === 1) {
-                            window.crud.page("previous");
-                            }
-                            window.crud.draw(false);
-                        }
-
-                        Swal.fire(
-                            'Deleted!',
-                            'Your product has been deleted.',
-                            'success'
-                         )
-			          	  
-			          } else {
-			            Swal.fire(
-                            'Failed!',
-                            'product cannot be deleted',
-                            'error'
-                         )	          	  
-			          }
-			      },
-			      error: function(result) {
-                      if(result.status != 500 && result.responseJSON != null && result.responseJSON.message != null && result.responseJSON.message.length != 0){
-						  var defaultText = result.responseJSON.message;
-                          Swal.fire(
-                            'Failed!',
-                            defaultText,
-                            'error'
-                         )
-					  }
-
-			      }
-			  });
-            }
-        })
-    }
-</script>
-<script>
   $(function () {
     window.crud = $('#list-datatable').DataTable({
         "paging": true,
@@ -167,17 +104,12 @@
         serverSide: true,
         ajax: "{{url('transaction/search')}}",
         columns: [
-            { data: 'name', name: 'name' },
+            { data: 'reference_no', name: 'reference_no' },
             { data: 'price', name: 'price' },
-            { data: 'stock', name: 'stock' },
-            { data: 'description', name:'description' },
-            {data: 'action', orderable: false}
+            { data: 'quantity', name: 'quantity' },
+            { data: 'payment_amount', name:'payment_amount' },
+            { data: 'product', name:'products.name' },
         ],
-        "columnDefs": [{
-            "targets": 'no-sort',
-            "orderable": false,
-            "order": []
-        }]
     });
   });
 </script>
