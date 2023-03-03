@@ -13,7 +13,7 @@
           <img src="{{ asset('dist/img/AdminLTELogo.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block">{{ $user }}</a>
         </div>
       </div>
 

@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,11 +18,13 @@ class ProductController extends Controller
     private $breadcrumb = '';
     private $active = '';
     private $page_title = '';
+    private $user = '';
     function setup(){
         $this->title = 'Products';
         $this->breadcrumb = 'Product';
         $this->active = 'product';
         $this->page_title = 'Product';
+        $this->user = Auth::user()->name;
     }
 
     function dataset(){
@@ -30,6 +33,7 @@ class ProductController extends Controller
             'breadcrumb' => $this->breadcrumb,
             'active' => $this->active,
             'page_title' => $this->page_title,
+            'user' => $this->user,
         ];
     }
 

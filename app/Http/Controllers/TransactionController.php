@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,9 +16,12 @@ class TransactionController extends Controller
     private $breadcrumb = '';
     private $active = 'transaction';
     private $page_title = 'Transaction';
+    private $user = '';
+    
     function setup(){
         $this->title = 'Transaction';
         $this->breadcrumb = 'Transaction';
+        $this->user = Auth::user()->name;
     }
 
     function dataset(){
@@ -26,6 +30,7 @@ class TransactionController extends Controller
             'breadcrumb' => $this->breadcrumb,
             'active' => $this->active,
             'page_title' => $this->page_title,
+            'user' => $this->user,
         ];
     }
 
