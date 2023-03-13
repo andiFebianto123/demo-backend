@@ -20,5 +20,5 @@ use Illuminate\Support\Facades\Route;
 // Route::get('contoh/create', [IndexController::class, 'create']);
 Route::get('/', function(){
     return view('welcome');
-})
+});
 
