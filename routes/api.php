@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('transaction/add-transaction', [TransactionController::class, 'store']);
+
+// customer
 Route::get('customer/mitra-search', [CustomerController::class, 'searchMitra']);
 Route::post('customer/order', [CustomerController::class, 'sendOrder']);
 Route::get('customer/order', [CustomerController::class, 'listOrder']);
